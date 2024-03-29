@@ -1,0 +1,58 @@
+nav {
+    position: sticky;
+    backdrop-filter: blur(20px);
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 40px;
+    height: 60px;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.142);
+
+    .nav_left {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-start;
+        gap: 10px;
+        h2 a{
+            font-size: 24px;
+            color: #fafafa;
+        }
+        p {
+            margin-bottom: 4px;
+            font-size: 13px;
+            font-style: italic;
+        }
+    }
+
+    .nav_right {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+    }
+    a {
+        font-size: 14px;
+    }
+    button {
+        width: 64px;
+        height: 30px;
+        border: 1px solid #fafafa;
+        background-color: #fafafa;
+        color: black;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        outline: 1px solid white;
+        outline-offset: 1px;
+    }
+    a:hover {
+        color: #fafafa;
+    }
+    .signup_button {
+        background-color: transparent !important;
+        color: #fafafa;
+    }
+}

@@ -1,0 +1,44 @@
+.signuppage {
+    width: 100%;
+    height: calc(100vh - 60px) ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.signupPageBox {
+    border: 1px solid #a0a0a9;
+    border-radius: 4px;
+    width: 600px;
+    padding: 20px;
+    p {
+        text-align: center;
+        font-size: 34px;
+        color: #a5a5a9;
+    }
+    small {
+        text-align: center;
+        width: 100%;
+        font-size: 20px;
+    }
+    .signupaction {
+        gap:  8px;
+        
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    button {
+        width: 50%;
+        height: 40px;
+        font-size: large;
+        border: 1px solid #fafafa;
+        background-color: #fafafa;
+        color: black;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .signup_button {
+        background-color: transparent !important;
+        color: #fafafa;
+    }
+}

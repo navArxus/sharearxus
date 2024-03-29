@@ -1,0 +1,73 @@
+.HomepageCont {
+    height: calc(100vh - 60px);
+    line-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    h1 {
+        font-size: 60px;
+        font-weight: bold;
+        color: #fafafa;
+    }
+
+    p {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+    .HomepageContButton {
+        display: flex;
+        gap: 20px;
+        transition: 0.4s ease-in-out;
+        margin-top: 20px;
+
+        .getstarted * {
+            color: rgba(0, 0, 0, 0.762);
+        }
+
+        .getstarted {
+            cursor: pointer;
+            transition: 0.2s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 16px;
+            width: 140px;
+            border: none;
+            color: black !important;
+            height: 40px;
+            border-radius: 5px;
+
+            svg {
+                color: black !important;
+                transition: 0.2s ease-in-out;
+                width: 0px;
+            }
+        }
+
+        .getstarted:hover {
+            svg {
+                transition: 0.2s ease-in-out;
+                width: 16px;
+            }
+        }
+
+        .learnmore {
+            font-size: 16px;
+            width: 140px;
+            border: 2px solid #fafafa;
+            color: #fafafa;
+            background-color: transparent;
+            height: 40px;
+            border-radius: 5px;
+        }
+
+    }
+}

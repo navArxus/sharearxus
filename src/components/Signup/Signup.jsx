@@ -4,7 +4,16 @@ import Box from '@mui/material/Box';
 import { useState } from "react";
 import { useFormik } from "formik"
 import * as Yup from 'yup'
+import axios from "axios";
+import server from "../../server/url";
+import { useNavigate } from "react-router-dom"
 const Signup = () => {
+
+    const [otpSection, setotpSection] = useState(false)
+    const [emailforverification, setemailforverification] = useState("")
+    const [emailforverificationerror, setemailforverificationrerror] = useState("")
+    const [otp, setotp] = useState("")
+    const  navigate = useNavigate()
 
     const formik = useFormik({
         initialValues: {
@@ -19,13 +28,41 @@ const Signup = () => {
             email: Yup.string().email("Invalid Email").required("Required"),
             password: Yup.string().required("Password is required").min(8)
         }),
-        onSubmit: values => {
-            console.log('The form has been submitted', values);
+        onSubmit: async values => {
+            try {
+                const res = await axios.post(`${server}user/signup`, {
+                    firstName: values.firstName,
+                    email: values.email,
+                    password: values.password
+                })
+                console.log(res)
+            } catch (error) {
+                console.log(error)
+            }
+            setemailforverification(values.email);
+            setotpSection(!otpSection)
         }
     })
-    console.log(formik.errors)
+    const verifyOtp = async () => {
+        if (otp === " ") {
+            setemailforverificationrerror("Please provide OTP")
+        } else {
+            console.log(emailforverification, otp)
+            try {
+                const res = await axios.post(`${server}user/verifyotp`, {
+                    email: emailforverification,
+                    otp: otp
+                })
+                console.log(res)
+                if (res.status === 200) {
+                    navigate("/login")
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
 
-    const [otpSection, setotpSection] = useState(false)
     return (
         <div className={styles.signuppage} >
             {
@@ -68,8 +105,8 @@ const Signup = () => {
                                         "& > fieldset": { borderColor: "#a0a0a9" },
                                     },
                                 }}
-                                id="outlined-basic" label="Enter Name" variant="outlined" />
-                                <span>{formik.errors.firstName}</span>
+                                label="Enter Name" variant="outlined" />
+                            <span>{formik.errors.firstName}</span>
                             <TextField
                                 type="email"
                                 name="email"
@@ -93,8 +130,8 @@ const Signup = () => {
                                         "& > fieldset": { borderColor: "#a0a0a9" },
                                     },
                                 }}
-                                id="outlined-basic" label="Enter Email" variant="outlined" />
-                                <span>{formik.errors.email}</span>
+                                label="Enter Email" variant="outlined" />
+                            <span>{formik.errors.email}</span>
                             <TextField
                                 type="password"
                                 name="password"
@@ -118,8 +155,8 @@ const Signup = () => {
                                         "& > fieldset": { borderColor: "#a0a0a9" },
                                     },
                                 }}
-                                id="outlined-basic" label="Enter Password" variant="outlined" />
-                                <span>{formik.errors.password}</span>
+                                label="Enter Password" variant="outlined" />
+                            <span>{formik.errors.password}</span>
                             <div className={styles.signupaction}>
 
                                 <button type="submit" >Submit</button>
@@ -128,7 +165,7 @@ const Signup = () => {
                         </Box>
                     </div >
                     : <div className={styles.signupPageBox}>
-                        <p>Verify OTP <br /> <small>OPT sent to nav22333@gmail.com</small> </p>
+                        <p>Verify OTP <br /> <small>OPT sent to {emailforverification}</small> </p>
                         <Box
                             sx={{
                                 '& > :not(style)': { m: 1, width: '96%' },
@@ -139,8 +176,7 @@ const Signup = () => {
                         >
 
                             <TextField
-                                type="number"
-
+                                type="text"
                                 sx={{
                                     "& .MuiInputLabel-root": { color: '#a0a0a9' },
                                     "& .MuiOutlinedInput-root": {
@@ -157,10 +193,11 @@ const Signup = () => {
                                         "& > fieldset": { borderColor: "#a0a0a9" },
                                     },
                                 }}
-                                id="outlined-basic" label="Enter OTP" variant="outlined" />
+                                label="Enter OTP" variant="outlined"
+                                onChange={e => setotp(e.target.value)} />
                             <div className={styles.signupaction}>
-
-                                <button>Submit</button>
+                                {emailforverificationerror && <p style={{ color: "red" }}>{emailforverificationerror}</p>}
+                                <button onClick={verifyOtp} >Submit</button>
                                 <button className={styles.signup_button} >Reset</button>
                             </div>
                         </Box>

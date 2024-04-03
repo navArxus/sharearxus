@@ -1,0 +1,105 @@
+.Code {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    .sidebar {
+        width: 20vw;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 10px 10px;
+        flex-direction: column;
+        height: calc(100vh - 60px);
+        h3 {
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.334);
+            width: 100% ;
+        }
+
+        .sidebarfiles {
+
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-end;
+            width: 100%;
+            gap: 4px;
+
+            span {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 5px;
+                padding: 2px 4px;
+                font-size: 14px;
+                border-radius: 5px;
+                width: 100%
+            }
+
+            span:hover {
+                background-color: rgba(255, 255, 255, 0.119);
+                cursor: pointer;
+            }
+        }
+
+        .siderbarActions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            width: 100%;
+            gap: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.296);
+            margin-bottom: 10px;
+        }
+    }
+
+    .editorhead {
+        border-left: 1px solid rgba(255, 255, 255, 0.311);
+        border-right: 1px solid rgba(255, 255, 255, 0.342);
+        width: 100%;
+
+        .editorheadinfo {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0px 8px;
+            height: calc(100vh - 85vh - 60px);
+
+            .editorheadcopy {
+                /* border: 2px dotted white; */
+                transform: translateY(4px);
+                padding-right: 8px;
+                cursor: pointer;
+            }
+
+            span {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                justify-content: space-between;
+
+                button {
+                    cursor: pointer;
+                    height: 25px;
+                    padding: 0px 8px;
+                    background-color: transparent;
+                    border: 1px solid rgba(255, 255, 255, 0.462);
+                    border-radius: 5px;
+                }
+            }
+        }
+    }
+
+    .activityspan {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+        width: 100%;
+    }
+
+}

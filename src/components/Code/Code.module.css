@@ -4,6 +4,7 @@
     justify-content: center;
 
     .sidebar {
+        overflow-y: auto;
         width: 20vw;
         display: flex;
         align-items: flex-start;

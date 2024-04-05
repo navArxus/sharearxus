@@ -7,11 +7,19 @@ import './App.css';
 import Getstarted from './components/GetStarted/Getstarted'
 // import { socket } from './socket/connection'
 import Code from './components/Code/code'
+import { Toaster } from 'sonner';
+
+
 function App() {
   // socket.emit("join","joined message")
   return (
     <div className="App">
-      
+      <Toaster toastOptions={{
+        style: {
+          background: 'black',
+        },
+        className: 'class',
+      }} />
       <Navbar />
       <Routes>
         <Route path='/' element={<Homepage />} />

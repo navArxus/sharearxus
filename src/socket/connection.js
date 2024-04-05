@@ -1,7 +1,7 @@
 import {io} from "socket.io-client"
 // import server from "../server/url"
 try {
-    var connect = io("http://localhost:5000/")
+    var connect = io("https://sharearxus-backend-mdh6.onrender.com/")
 } catch (error) {
     console.log(error)
 }

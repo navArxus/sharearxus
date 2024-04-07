@@ -3,6 +3,7 @@ import styles from "./Getstarted.module.css"
 import { socket } from '../../socket/connection'
 import { nanoid } from 'nanoid'
 import { useNavigate } from "react-router-dom"
+import { toast } from 'sonner'
 
 const Getstarted = () => {
 
@@ -31,7 +32,8 @@ const Getstarted = () => {
       localStorage.setItem("roomID", roomID)
       console.log(msg)
       // window.open(`http://localhost:3000/`, null , 'popup')
-      alert(`I joined at ${msg.roomID}`)
+      toast.info('Someone Joined',msg.roomID)
+      // alert(`I joined at ${msg.roomID}`)
       navigate(`/code/${msg.roomID}`)
 
     })
@@ -51,7 +53,8 @@ const Getstarted = () => {
       localStorage.setItem("roomID", joinroomCode.current.value)
       console.log(msg)
       // window.open(`http://localhost:3000/`, null , 'popup')
-      alert(`I joined at ${msg.roomID}`)
+      // alert(`I joined at ${msg.roomID}`)
+      toast.info('Someone Joined',msg.roomID)
       navigate(`/code/${msg.roomID}`)
 
     })

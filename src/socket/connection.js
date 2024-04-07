@@ -1,7 +1,7 @@
 import {io} from "socket.io-client"
 // import server from "../server/url"
 try {
-    var connect = io("https://sharearxus-backend-ylik.onrender.com")
+    var connect = io("https://sharearxus.onrender.com")
 } catch (error) {
     console.log(error)
 }

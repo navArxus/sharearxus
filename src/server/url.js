@@ -1,3 +1,3 @@
-const server = "https://sharearxus-backend-ylik.onrender.com/"
+const server = "https://sharearxus.onrender.com/"
 
 export default server 

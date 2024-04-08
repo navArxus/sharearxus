@@ -1,4 +1,5 @@
 nav {
+    z-index: 101;
     position: sticky;
     backdrop-filter: blur(20px);
     top: 0;

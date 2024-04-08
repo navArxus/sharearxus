@@ -1,0 +1,33 @@
+.loader_wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #000000dd;
+    z-index: 99;
+    flex-direction: column;
+    gap:  2rem;
+    p {
+        font-style: italic;
+    }
+}
+.loader {
+    width: 60px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+        radial-gradient(farthest-side, #fafafa 94%, #0000) top/8px 8px no-repeat,
+        conic-gradient(#0000 30%, #fafafa);
+    -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+    animation: l13 1s infinite linear;
+}
+
+@keyframes l13 {
+    100% {
+        transform: rotate(1turn)
+    }
+}

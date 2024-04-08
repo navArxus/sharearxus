@@ -6,10 +6,11 @@ import * as Yup from 'yup'
 import server from "../../server/url";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
-
+import { useDispatch } from "react-redux";
+import { loadingactions } from "../../store";
 const Login = () => {
     const navigate = useNavigate()
-
+    const dispatch = useDispatch()
 
     const formik = useFormik({
         initialValues: {
@@ -21,7 +22,9 @@ const Login = () => {
             password: Yup.string().required("Password is required").min(8)
         }),
         onSubmit: async values => {
+
             try {
+                dispatch(loadingactions.setLoading(true))
                 const res = await axios.post(`${server}user/login`, {
                     email: values.email,
                     password: values.password
@@ -29,14 +32,16 @@ const Login = () => {
                 console.log(res)
                 localStorage.setItem('token', res.data);
                 if (res.status === 200) {
+                    dispatch(loadingactions.setLoading(false))
                     navigate("/")
                 }
             } catch (error) {
+                dispatch(loadingactions.setLoading(false))
                 console.log(error)
             }
         }
     })
-
+    
     return (
         <div className={styles.signuppage} >
             <div className={styles.signupPageBox}>

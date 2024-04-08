@@ -4,11 +4,14 @@ import { socket } from '../../socket/connection'
 import { nanoid } from 'nanoid'
 import { useNavigate } from "react-router-dom"
 import { toast } from 'sonner'
+import { useDispatch } from 'react-redux'
+import { loadingactions } from '../../store'
 
 const Getstarted = () => {
 
   const joinroomCode = useRef(null)
   const [joinroomerror, setjoinroomerror] = useState(null)
+  const dispatch = useDispatch()
 
 
   const navigate = useNavigate()
@@ -18,6 +21,7 @@ const Getstarted = () => {
     const roomID = nanoid(6)
     console.log(tempararyID, roomID)
     try {
+      dispatch(loadingactions.setLoading(true))
       socket.emit('create-room', {
         tempararyID,
         roomID,
@@ -25,6 +29,8 @@ const Getstarted = () => {
       })
 
     } catch (error) {
+      dispatch(loadingactions.setLoading(false))
+
       console.log(error)
     }
     socket.on("room-joined", msg => {
@@ -32,7 +38,8 @@ const Getstarted = () => {
       localStorage.setItem("roomID", roomID)
       console.log(msg)
       // window.open(`http://localhost:3000/`, null , 'popup')
-      toast.info('Someone Joined',msg.roomID)
+      toast.info('Someone Joined', msg.roomID)
+      dispatch(loadingactions.setLoading(false))
       // alert(`I joined at ${msg.roomID}`)
       navigate(`/code/${msg.roomID}`)
 
@@ -41,6 +48,7 @@ const Getstarted = () => {
   const joinroom = () => {
     const tempararyID = localStorage.getItem("tempID") || nanoid(8)
     if (!joinroomCode.current.value) return setjoinroomerror("Can't be empty value");
+    dispatch(loadingactions.setLoading(true))
 
     socket.emit("join-room", {
 
@@ -54,7 +62,9 @@ const Getstarted = () => {
       console.log(msg)
       // window.open(`http://localhost:3000/`, null , 'popup')
       // alert(`I joined at ${msg.roomID}`)
-      toast.info('Someone Joined',msg.roomID)
+      toast.info('Someone Joined', msg.roomID)
+      dispatch(loadingactions.setLoading(false))
+
       navigate(`/code/${msg.roomID}`)
 
     })

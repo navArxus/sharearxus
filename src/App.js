@@ -8,10 +8,12 @@ import Getstarted from './components/GetStarted/Getstarted'
 // import { socket } from './socket/connection'
 import Code from './components/Code/code'
 import { Toaster } from 'sonner';
-
+import Loading from './components/Loading/Loading'
+import { useSelector } from 'react-redux'
 
 function App() {
   // socket.emit("join","joined message")
+  const isLoading =  useSelector((state) => state.loading);
   return (
     <div className="App">
       <Toaster toastOptions={{
@@ -20,6 +22,7 @@ function App() {
         },
         className: 'class',
       }} />
+      {isLoading.isLoading && <Loading/>}
       <Navbar />
       <Routes>
         <Route path='/' element={<Homepage />} />

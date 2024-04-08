@@ -7,6 +7,8 @@ import * as Yup from 'yup'
 import axios from "axios";
 import server from "../../server/url";
 import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux";
+import { loadingactions } from "../../store";
 const Signup = () => {
 
     const [otpSection, setotpSection] = useState(false)
@@ -14,6 +16,7 @@ const Signup = () => {
     const [emailforverificationerror, setemailforverificationrerror] = useState("")
     const [otp, setotp] = useState("")
     const  navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const formik = useFormik({
         initialValues: {
@@ -30,6 +33,7 @@ const Signup = () => {
         }),
         onSubmit: async values => {
             try {
+                dispatch(loadingactions.setLoading(true))
                 const res = await axios.post(`${server}user/signup`, {
                     firstName: values.firstName,
                     email: values.email,
@@ -37,10 +41,12 @@ const Signup = () => {
                 })
                 console.log(res)
             } catch (error) {
+                dispatch(loadingactions.setLoading(false))
                 console.log(error)
             }
             setemailforverification(values.email);
             setotpSection(!otpSection)
+            dispatch(loadingactions.setLoading(false))
         }
     })
     const verifyOtp = async () => {
@@ -48,6 +54,7 @@ const Signup = () => {
             setemailforverificationrerror("Please provide OTP")
         } else {
             console.log(emailforverification, otp)
+            dispatch(loadingactions.setLoading(true))
             try {
                 const res = await axios.post(`${server}user/verifyotp`, {
                     email: emailforverification,
@@ -55,9 +62,11 @@ const Signup = () => {
                 })
                 console.log(res)
                 if (res.status === 200) {
+                    dispatch(loadingactions.setLoading(false))
                     navigate("/login")
                 }
             } catch (error) {
+                dispatch(loadingactions.setLoading(false))
                 console.log(error)
             }
         }

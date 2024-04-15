@@ -8,9 +8,14 @@ import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux";
 import { loadingactions } from "../../store";
+import { toast } from 'sonner'
+import { useState } from "react";
+
 const Login = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    const [reserror, setreserror] = useState(null)
 
     const formik = useFormik({
         initialValues: {
@@ -28,12 +33,29 @@ const Login = () => {
                 const res = await axios.post(`${server}user/login`, {
                     email: values.email,
                     password: values.password
-                })
-                console.log(res)
-                localStorage.setItem('token', res.data);
+                },
+                    {
+                        withCredentials: true,
+                    })
+
+                localStorage.setItem('token', res.data.message);
+
                 if (res.status === 200) {
+
                     dispatch(loadingactions.setLoading(false))
                     navigate("/")
+                    toast.success('Login successfully', {
+                        duration: 2000,
+                    })
+                }
+                else {
+                    alert(reserror)
+                    setreserror(res.data.message)
+                    alert(reserror)
+                    toast.error(`${res.data.message}`, {
+                        duration: 8000,
+                    })
+                    dispatch(loadingactions.setLoading(false))
                 }
             } catch (error) {
                 dispatch(loadingactions.setLoading(false))
@@ -41,13 +63,14 @@ const Login = () => {
             }
         }
     })
-    
+
     return (
         <div className={styles.signuppage} >
             <div className={styles.signupPageBox}>
 
-                <p>Login <br />
+                <p>Login 
                     <small>Welcome Back!!!!</small>
+                    {reserror && <small style={{color:"red",fontSize:"14px"}} >{reserror}</small>}
                 </p>
                 <Box
                     component="form"

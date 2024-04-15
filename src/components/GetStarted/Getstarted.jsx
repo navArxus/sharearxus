@@ -37,10 +37,12 @@ const Getstarted = () => {
       localStorage.setItem("tempID", tempararyID)
       localStorage.setItem("roomID", roomID)
       console.log(msg)
-      // window.open(`http://localhost:3000/`, null , 'popup')
+
+
       toast.info('Someone Joined', msg.roomID)
+
       dispatch(loadingactions.setLoading(false))
-      // alert(`I joined at ${msg.roomID}`)
+
       navigate(`/code/${msg.roomID}`)
 
     })
@@ -56,6 +58,10 @@ const Getstarted = () => {
       tempararyID,
 
     })
+    socket.on('No-room-Found', (msg) => {
+      toast.error("Room not Found!")
+      dispatch(loadingactions.setLoading(false))
+    });
     socket.on("room-joined", msg => {
       localStorage.setItem("tempID", tempararyID)
       localStorage.setItem("roomID", joinroomCode.current.value)
